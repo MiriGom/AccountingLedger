@@ -1,4 +1,4 @@
-#Accounting Ledger Console App
+# Accounting Ledger Console App
 
 I prompt you to enter your full name, so I can welcome you and run the application
 I just check that the users answer is not empty and that turns the boolean "isRunning" to true
