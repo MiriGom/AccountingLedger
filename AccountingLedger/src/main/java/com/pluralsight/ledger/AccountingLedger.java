@@ -122,8 +122,8 @@ public class AccountingLedger {
                     }
                     break;
                 case "R":
-                    // runReports();
-                    //  break;
+                    runReports();
+                    break;
                 case "H":
                     return;
             }
@@ -222,19 +222,62 @@ public class AccountingLedger {
     }
 
     public static void runReports() {
-        System.out.printf("""
-                ==============================
-                           Reports
-                ==============================
-                
-                1. Month To Date
-                2. Previous Month
-                3. Year To Date
-                4. Previous Year
-                5. Search By Vendor
-                0. Back To Ledger Screen
-                """);
+        boolean isRunning = true;
+        while (isRunning) {
+            System.out.printf("""
+                    ==============================
+                               Reports
+                    ==============================
+                    
+                    1. Month To Date
+                    2. Previous Month
+                    3. Year To Date
+                    4. Previous Year
+                    5. Search By Vendor
+                    0. Back To Ledger Screen
+                    """);
+            int numberCommand = scanner.nextInt();
+            scanner.nextLine();
+            LocalDate date = LocalDate.now();
+            switch (numberCommand) {
+                case 1:
+                    for (ATransaction transaction : transactions) {
+                        if (transaction.getDate().getMonth().equals(date.getMonth())) {
+                            System.out.println(transaction);
+                        }
+                    }
+                    break;
+                case 2:
+                    LocalDate previousMonth = date.minusMonths(1);//this gets us exactly one month from today
+                    LocalDate firstDayOfPreviousMonth = previousMonth.withDayOfMonth(1);//to build beginning of month range
+                    LocalDate lastDayOfPreviousMonth = previousMonth.withDayOfMonth(previousMonth.lengthOfMonth());// to end the month range
 
+                    for (ATransaction transaction : transactions) {
+                        LocalDate transactionDate = transaction.getDate();
+
+                        if (!transactionDate.isBefore(firstDayOfPreviousMonth) && !transactionDate.isAfter(lastDayOfPreviousMonth)) {
+                            System.out.println(transaction);
+                        }
+                    }
+                    break;
+                case 3:
+                    for (ATransaction transaction : transactions) {
+                        if (transaction.getDate().getYear() == date.getYear()) {
+                            System.out.println(transaction);
+                        }
+                    } break;
+                case 4:
+                    //previous year
+                    break;
+                case 5:
+                    for (ATransaction transaction : transactions) {
+                        System.out.println(transaction.getVendor());
+                    } break;
+                case 0:
+                    return;
+            }
+
+        }
     }
 
 
