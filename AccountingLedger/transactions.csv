@@ -1,86 +1,38 @@
-2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
-2023-04-15|11:15:00|Invoice 1001 paid|Joe|1500.00
-2024-10-16|00:15:46|work|miri|1200.0
-2024-10-16|00:16:27|friendship|Julie|-45.0
-2024-10-16|00:38:50|work hard|usps|1200.0
-2024-10-16|00:39:55|working really hard|deloitte|1200.0
-2024-10-16|00:41:43|He takes my money|Sandra|-45.0
-2024-10-16|01:02:55|Working hard|usps|1200.0
-2024-10-16|01:03:27|Student Stipend|yearupunited|500.0
-2024-10-16|01:03:53|rent|rene|-700.0
-2024-10-16|01:04:33|iphone 13 mini|apple|-400.0
-2024-10-16|01:08:41|rent|rene|-400.0
-2024-10-16|01:09:00|clothes|walmart|-70.0
-2024-10-16|01:09:15|work|usps|1200.0
-2024-10-16|01:10:02|Student Stipend|yearupunited|550.0
-2024-10-16|01:27:18|Working hard|usps|1200.0
-2024-10-16|01:27:39|rent|rene|-600.0
-2024-10-16|01:28:33|Student Stipend|year up united|550.0
-2024-10-16|02:17:14|lost food to milton|milton|-200.0
-2020-01-12|15:23:45|groceries|walmart|-45.60
-2020-01-22|09:15:10|clothes|target|-85.50
-2020-02-05|14:30:12|electronics|bestbuy|-299.99
-2020-02-16|11:45:30|dining|olive garden|-65.25
-2020-03-03|18:22:18|entertainment|cinemas|-15.00
-2020-03-28|07:05:47|gas|shell|-30.75
-2020-04-10|12:10:11|travel|airline|-1200.00
-2020-05-09|16:43:55|clothes|old navy|-50.25
-2020-05-21|08:30:30|home|home depot|-200.00
-2020-06-14|10:15:27|groceries|costco|-120.30
-2020-06-28|13:05:15|fitness|gym|-60.00
-2020-07-12|17:20:22|dining|mcdonalds|-10.50
-2024-08-01|14:45:00|entertainment|netflix|-15.99
-2020-08-15|19:30:45|clothes|zara|-70.80
-2020-09-04|09:00:01|gas|chevron|-40.00
-2020-09-22|20:15:15|electronics|amazon|-150.00
-2020-10-18|11:10:10|books|barnes and noble|-25.00
-2020-10-30|13:25:25|groceries|aldi|-45.75
-2020-11-14|16:30:05|home|lowes|-90.00
-2020-12-05|10:12:12|travel|airbnb|-300.00
-2021-01-01|12:00:00|new year|gifts|-200.00
-2021-01-22|11:15:50|clothes|gap|-55.99
-2021-02-14|14:30:30|dining|starbucks|-25.00
-2021-02-25|17:00:00|fitness|yoga|-40.00
-2021-03-10|09:45:00|entertainment|disney+|-7.99
-2021-03-27|13:20:20|groceries|kroger|-80.60
-2021-04-15|18:35:35|gas|bp|-60.00
-2021-05-01|10:50:00|clothes|h&m|-40.00
-2021-05-18|15:30:00|electronics|apple|-999.99
-2024-06-20|14:15:15|home|ikea|-200.00
-2021-07-04|11:00:00|travel|booking.com|-1500.00
-2021-08-10|19:30:10|dining|chipotle|-12.50
-2021-09-22|13:15:15|books|bookstore|-18.00
-2021-10-11|08:45:00|groceries|trader joes|-45.00
-2021-10-25|12:05:25|fitness|fitbit|-99.99
-2021-11-30|16:40:00|electronics|newegg|-200.00
-2021-12-15|14:30:00|entertainment|hbo max|-15.00
-2022-01-05|10:10:10|clothes|asos|-65.00
-2022-02-03|13:22:22|groceries|publix|-50.00
-2022-02-14|18:05:05|dining|panera|-20.00
-2022-03-20|11:00:00|home|wayfair|-150.00
-2022-04-01|09:55:00|travel|expedia|-900.00
-2024-04-20|14:30:00|gas|exxon|-50.00
-2022-05-11|15:20:20|electronics|walmart|-300.00
-2022-06-05|12:00:00|fitness|24 hour fitness|-40.00
-2022-06-30|16:15:15|clothes|forever 21|-30.00
-2022-07-12|14:00:00|dining|taco bell|-8.00
-2022-08-25|19:45:45|entertainment|spotify|-9.99
-2022-09-15|10:30:30|books|audiobook|-15.00
-2022-10-18|13:10:10|groceries|meijer|-60.00
-2022-11-05|14:40:40|home|target|-100.00
-2022-12-10|16:22:22|travel|hotels.com|-700.00
-2023-01-01|12:00:00|new year|celebration|-300.00
-2023-01-15|11:15:50|clothes|burlington|-45.00
-2023-02-20|14:30:30|dining|dominos|-25.00
-2024-03-05|17:00:00|groceries|big y|-80.00
-2023-03-30|09:45:00|fitness|planet fitness|-30.00
-2023-04-12|18:35:35|electronics|costco|-250.00
-2023-05-22|10:50:00|clothes|nike|-90.00
-2024-06-15|14:15:15|home|amazon|-200.00
-2023-07-04|11:00:00|travel|delta|-1000.00
-2023-08-10|19:30:10|dining|chick-fil-a|-12.00
-2023-09-18|13:15:15|books|books-a-million|-25.00
-2023-10-01|08:45:00|groceries|whole foods|-70.00
-2023-10-16|01:09:00|clothes|walmart|-70.0
-2023-10-16|00:38:50|work hard|usps|1200.0
+2020-01-10|09:00:00|Office supplies|Staples|-125.75
+2020-01-12|14:45:12|Consulting fees|Client A|2000.00
+2020-02-05|10:30:00|Monthly subscription|Spotify|-9.99
+2020-02-20|12:00:00|Freelance project|Client B|750.00
+2020-03-15|15:20:30|Web hosting|Postcardmania|-15.99
+2020-04-01|09:15:00|Payment for services|Client C|1200.00
+2020-04-25|11:00:00|Gadget purchase|Best Buy|-299.99
+2020-05-10|13:30:00|Rent payment|Landlord|-1500.00
+2020-06-07|09:45:00|Payment received|Client D|1800.00
+2020-06-20|10:15:00|Domain renewal|Namecheap|-10.99
+2020-07-04|12:00:00|Coffee purchase|Starbucks|-5.50
+2020-08-01|08:30:00|Invoice 1001 paid|Client E|500.00
+2020-08-15|16:00:00|Electric bill|Utility Co|-60.00
+2020-09-10|11:15:00|Graphic design tools|Adobe|-52.99
+2020-10-01|14:00:00|Payment received|Client F|2200.00
+2020-10-20|10:10:00|Website maintenance|Freelancer|-300.00
+2020-11-15|09:50:00|Office coffee supply|Amazon|-40.00
+2020-12-01|12:00:00|Consulting fees|Client G|1500.00
+2020-12-20|15:30:00|Annual membership|Professional Org|-200.00
+2021-01-15|10:15:00|Payment received|Client H|1800.00
+2021-02-05|09:00:00|Software license|Microsoft|-120.00
+2021-03-10|11:30:00|Payment for services|Client I|2500.00
+2021-04-15|14:00:00|Office furniture|IKEA|-450.00
+2021-05-20|09:15:00|Monthly subscription|Netflix|-15.99
+2021-06-07|10:45:00|Payment received|Client J|2000.00
+2021-07-01|12:30:00|Payment for project|Client K|1600.00
+2021-08-15|08:00:00|Advertising fees|Google|-300.00
+2021-09-10|13:00:00|Payment received|Client L|2300.00
+2021-10-15|09:30:00|Utility bill|Electric Co|-75.00
+2021-11-01|14:00:00|Invoice 1002 paid|Client M|850.00
+2021-12-20|10:15:00|Holiday gifts|Various|-150.00
+2022-01-10|11:00:00|Payment received|Client N|2000.00
+2022-02-15|09:45:00|Website renewal|HostGator|-120.00
+2022-03-20|10:00:00|Payment for services|Client O|1400.00
+2022-04-01|13:30:00|Office supplies|Office Depot|-60.00
 
+2024-10-16|15:03:21|I work very hard|usps|1200.0
+2024-10-16|15:07:23|work|usps|200.0

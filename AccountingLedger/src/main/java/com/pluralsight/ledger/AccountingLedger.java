@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -19,32 +20,20 @@ public class AccountingLedger {
 
 
     public static void main(String[] args) {
-        //loadLedger();
-        System.out.println("Please enter your full name to start you Accounting Ledger Application");
+        System.out.println("\nPlease enter your full name to start you Accounting Ledger Application");
         String userFullName = scanner.nextLine().toUpperCase().trim();
-        //logAction(userFullName + " Logged On");
+
         boolean isRunning = false;
         if (!userFullName.isEmpty()) {
             isRunning = true;
         }
         while (isRunning) {
-            /*
-            System.out.println("""
-                    ==============================
-                    """);
-            System.out.println("       WELCOME " + userFullName + "\n\n==============================");
-            System.out.println("""
-                    D: Add Deposit
-                    P: Make a Payment
-                    L: Ledger
-                    X: Exit
-                    """); */
             System.out.printf("""
-                    =================================
+                    ==========================================
                     
                               WELCOME %s
                     
-                    =================================
+                    ==========================================
                     D: Add Deposit
                     P: Make a Payment
                     L: Ledger
@@ -94,7 +83,7 @@ public class AccountingLedger {
                     A: All Entries
                     D: Deposits
                     P: Payment
-                    R: Reports 
+                    R: Reports
                     H: Home Screen
                     
                     ===============================
@@ -106,7 +95,7 @@ public class AccountingLedger {
                     for (ATransaction transaction : transactions) {
                         System.out.println(transaction);
                     }
-                    //break;
+                    break;
                 case "D":
                     for (ATransaction transaction : transactions) {
                         if (transaction.getAmount() > 0) {
@@ -170,7 +159,6 @@ public class AccountingLedger {
                     }
                     ATransaction userTransaction = new ATransaction(date, time, description, vendor, amount);
                     transactions.add(userTransaction);
-                    System.out.println(userTransaction);
                 }
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
@@ -184,13 +172,14 @@ public class AccountingLedger {
 
         System.out.println("Please type the amount of the deposit:");// prompt user for deposit amount
         double depositAmount = scanner.nextDouble();//create variable to save deposit amount
+        String formattedDeposit = String.format("%.2f", depositAmount);
         scanner.nextLine(); //used after an nextInt or nextDouble to complete
 
-        System.out.println("Please describe deposit"); //prompting user for a description
+        System.out.println("Please give reason or description for the deposit"); //prompting user for a description
         String depositDescription = scanner.nextLine(); // saving it in a variable
         LocalDate date = LocalDate.now();//making a variable to save the current date so we can later insert it as a parameter to a transaction in the list called transactions
         LocalTime time = LocalTime.now();//making a variable to save the current time so we can later insert it as a parameter to a transaction in a list called transactions
-        System.out.println("Deposit of Amount: $" + depositAmount + " successful!");// telling user their deposit was successful
+        System.out.println("Deposit of Amount: $" + formattedDeposit + " successful!");// telling user their deposit was successful
 
         ATransaction userDeposit = new ATransaction(date, time, depositDescription, funderName, depositAmount); //with all the parameters provided above we create a transaction under the variable userDeposit
         transactions.add(userDeposit);//we add our above deposit as transaction to a list called transactions
@@ -239,10 +228,17 @@ public class AccountingLedger {
             int numberCommand = scanner.nextInt();
             scanner.nextLine();
             LocalDate date = LocalDate.now();
+
+
             switch (numberCommand) {
+                case 0:
+                    return;
                 case 1:
+                    LocalDate firstDayOfMonth = date.withDayOfMonth(1);
+                    LocalDate lastDayOfMonth = date.withDayOfMonth(date.lengthOfMonth());
                     for (ATransaction transaction : transactions) {
-                        if (transaction.getDate().getMonth().equals(date.getMonth())) {
+                        LocalDate transactionDate = transaction.getDate();
+                        if (!transactionDate.isBefore(firstDayOfMonth) && !transactionDate.isAfter(lastDayOfMonth)) {
                             System.out.println(transaction);
                         }
                     }
@@ -254,7 +250,6 @@ public class AccountingLedger {
 
                     for (ATransaction transaction : transactions) {
                         LocalDate transactionDate = transaction.getDate();
-
                         if (!transactionDate.isBefore(firstDayOfPreviousMonth) && !transactionDate.isAfter(lastDayOfPreviousMonth)) {
                             System.out.println(transaction);
                         }
@@ -267,14 +262,25 @@ public class AccountingLedger {
                         }
                     } break;
                 case 4:
-                    //previous year
+                    LocalDate previousYear = date.minusYears(1);//this gets us exactly one month from today
+                    LocalDate firstDayOfPreviousYear = previousYear.withDayOfYear(1);//to build beginning of month range
+                    LocalDate lastDayOfPreviousYear = previousYear.withDayOfMonth(previousYear.lengthOfMonth());// to end the month range
+
+                    for (ATransaction transaction : transactions) {
+                        LocalDate transactionDate = transaction.getDate();
+                        if (!transactionDate.isBefore(firstDayOfPreviousYear) && !transactionDate.isAfter(lastDayOfPreviousYear)) {
+                            System.out.println(transaction);
+                        }
+                    }
                     break;
                 case 5:
+                    System.out.println("Type and enter the vender you are searching for");
+                    String searchingForVender = scanner.nextLine().toLowerCase().trim();
                     for (ATransaction transaction : transactions) {
-                        System.out.println(transaction.getVendor());
+                        if (searchingForVender.equals(transaction.getVendor().toLowerCase())) {
+                            System.out.println(transaction);
+                        }
                     } break;
-                case 0:
-                    return;
             }
 
         }
