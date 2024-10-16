@@ -2,7 +2,7 @@
 
 
 ### Overview
-- I prompt you to enter your full name, so I can welcome you and run the application
+- I prompt you to enter your full name, so I can welcome you and run the application <b>
   ![Image goes here](img.png)
 
 I just check that the users answer is not empty and that turns the boolean "isRunning" to true
