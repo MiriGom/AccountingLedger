@@ -196,7 +196,7 @@ public class AccountingLedger {
         double paymentAmount = scanner.nextDouble();
         scanner.nextLine();
         double ledgerPaymentAmount = -Math.abs(paymentAmount); //changed variable name so I can still use the positive number to the user.
-
+        String formattedPaymentAmount = String.format("%.2f", paymentAmount);
         System.out.println("Please describe what you are buying");
         String paymentDescription = scanner.nextLine();
 
@@ -282,9 +282,6 @@ public class AccountingLedger {
                         }
                     } break;
             }
-
         }
     }
-
-
 }
