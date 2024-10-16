@@ -13,23 +13,22 @@ import java.util.Scanner;
 public class AccountingLedger {
 
     static Scanner scanner = new Scanner(System.in);
-    static ArrayList<LedgerList> payments = new ArrayList<>();
-    static ArrayList<LedgerList> deposits = new ArrayList<>();
     static ArrayList<ATransaction> transactions = new ArrayList<>();
-    static HashMap<String, ATransaction> ledgerEntries = new HashMap<String, ATransaction>();
     private static final String loggingFile = "transaction.csv";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss");
 
 
     public static void main(String[] args) {
-       // loadLedger();
+        //loadLedger();
         System.out.println("Please enter your full name to start you Accounting Ledger Application");
-        String userFullName = scanner.nextLine();
+        String userFullName = scanner.nextLine().toUpperCase().trim();
+        //logAction(userFullName + " Logged On");
         boolean isRunning = false;
         if (!userFullName.isEmpty()) {
             isRunning = true;
         }
         while (isRunning) {
+            /*
             System.out.println("""
                     ==============================
                     """);
@@ -39,113 +38,204 @@ public class AccountingLedger {
                     P: Make a Payment
                     L: Ledger
                     X: Exit
-                    """);
+                    """); */
+            System.out.printf("""
+                    =================================
+                    
+                              WELCOME %s
+                    
+                    =================================
+                    D: Add Deposit
+                    P: Make a Payment
+                    L: Ledger
+                    X: Exit
+                    """, userFullName);
             String userInputLetter = scanner.nextLine().trim().toUpperCase();
             switch (userInputLetter) {
                 case "D":
-                    //addDeposit();
+                    addDeposit();
                     break;
                 case "P":
-                    //makePayment();
+                    makePayment();
                     break;
                 case "L":
-
-                    //showLedgerDisplay();
+                    showLedgerDisplay();
                     break;
                 case "X":
+                    System.out.println("Have a great day! Bye Bye now.");
                     isRunning = false;
             }
         }
-
     }
+
     //method to log transactions
-    private void logAction(String action) {
+    private static void logAction(String action) {
         String timeStamp = LocalDateTime.now().format(formatter);       //getting timestamp and formatting
-        String logEntry = String.format("%s %s%n", timeStamp, action);    //using the printformat to construct a log entry
+        String logEntry = String.format("%s|%s%n", timeStamp, action);    //using the printformat to construct a log entry
 
 //creating a FileWriter to create an instance to write to a file named "transactions". Buffwriter improves efficiency
-        try (BufferedWriter bufWriter = new BufferedWriter(new FileWriter("transactions.csv", true))){ //true (append) means if the file does not exist we are going to create it.
+        try (BufferedWriter bufWriter = new BufferedWriter(new FileWriter("transactions.csv", true))) { //true (append) means if the file does not exist we are going to create it.
             bufWriter.write(logEntry); // this is the code that actually writes to the transactions.csv
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
     //new screen
-    private void showLedgerDisplay() {
-        //show options for
-        // 1. All Entries---add double int to show total or put it in reports
-        // 2.Deposits
-        // 3.Payments
-        // 4.Reports --will be its own screen
+    private static void showLedgerDisplay() {
+        loadLedger();
+        boolean isRunning = true;
+        while (isRunning) {
+            System.out.println("""
+                    ===============================
+                                DISPLAY
+                    ===============================
+                    
+                    A: All Entries
+                    D: Deposits
+                    P: Payment
+                    R: Reports 
+                    H: Home Screen
+                    
+                    ===============================
+                    """);
 
-    }
-    /*
-//method to read data from csv and write to the ledger
-    private static void loadLedger() {
-        try {
-            FileReader fileReader = new FileReader("C:\\pluralsight\\AccountingLedger\\AccountingLedger\\transactions.csv");
-            BufferedReader bufReader = new BufferedReader(fileReader);
-            String eachLine;
-
-            while ((eachLine = bufReader.readLine()) !=null) {
-                String[] newEachLine = eachLine.split("\\|");
-
-                if (newEachLine.length < 5) {
-                    System.out.println("Invalid format: " + eachLine);
-                    continue;
-                }
-                LocalDate date;
-                try {
-                    date = LocalDate.parse(newEachLine[0].trim());
-                } catch (DateTimeParseException e) {
-                    System.out.println("Invalid date format: " + newEachLine[0]);
-                    continue;
-                }
-                LocalTime time;
-                try {
-                    time = LocalTime.parse(newEachLine[1].trim());
-                } catch (DateTimeParseException e) {
-                    System.out.println("Invalid time format: " + newEachLine[1]);
-                    continue;
-                }
-                String description = newEachLine[2].trim();
-                String vendor = newEachLine[3].trim();
-                double amount;
-                try {
-                    amount = Double.parseDouble(newEachLine[4].trim());
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid amount format: " + newEachLine[3]);
-                    continue;
-                }
-                ATransaction userTransaction = new ATransaction(date, time, description, vendor, amount);
-                transactions.add(userTransaction);
-                //System.out.println(userTransaction);
+            String userInputLetter = scanner.nextLine();
+            switch (userInputLetter.toUpperCase().trim()) {
+                case "A":
+                    for (ATransaction transaction : transactions) {
+                        System.out.println(transaction);
+                    }
+                    //break;
+                case "D":
+                    for (ATransaction transaction : transactions) {
+                        if (transaction.getAmount() > 0) {
+                            System.out.println(transaction);
+                        }
+                    }
+                    break;
+                case "P":
+                    for (ATransaction transaction : transactions) {
+                        if (transaction.getAmount() < 0) {
+                            System.out.println(transaction);
+                        }
+                    }
+                    break;
+                case "R":
+                    // runReports();
+                    //  break;
+                case "H":
+                    return;
             }
-
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
-    }*/
-    /*
-    private addDeposit(){
+    }
+
+
+        //method to read data from csv and write to the ledger
+        private static void loadLedger() {
+            try {
+                FileReader fileReader = new FileReader("C:\\pluralsight\\AccountingLedger\\AccountingLedger\\transactions.csv");
+                BufferedReader bufReader = new BufferedReader(fileReader);
+                String eachLine;
+
+                while ((eachLine = bufReader.readLine()) !=null) {
+                    String[] newEachLine = eachLine.split("\\|");
+
+                    if (newEachLine.length < 5) {
+                        System.out.println("Invalid format: " + eachLine);
+                        continue;
+                    }
+                    LocalDate date;
+                    try {
+                        date = LocalDate.parse(newEachLine[0].trim());
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid date format: " + newEachLine[0]);
+                        continue;
+                    }
+                    LocalTime time;
+                    try {
+                        time = LocalTime.parse(newEachLine[1].trim());
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid time format: " + newEachLine[1]);
+                        continue;
+                    }
+                    String description = newEachLine[2].trim();
+                    String vendor = newEachLine[3].trim();
+                    double amount;
+                    try {
+                        amount = Double.parseDouble(newEachLine[4].trim());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid amount format: " + newEachLine[3]);
+                        continue;
+                    }
+                    ATransaction userTransaction = new ATransaction(date, time, description, vendor, amount);
+                    transactions.add(userTransaction);
+                    System.out.println(userTransaction);
+                }
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    private static void addDeposit() {
+        System.out.println("Please enter name of the funder for this deposit");//prompt user for name of funder
+        String funderName = scanner.nextLine().toLowerCase().trim(); //variable to save name provided
+
+        System.out.println("Please type the amount of the deposit:");// prompt user for deposit amount
+        double depositAmount = scanner.nextDouble();//create variable to save deposit amount
+        scanner.nextLine(); //used after an nextInt or nextDouble to complete
+
+        System.out.println("Please describe deposit"); //prompting user for a description
+        String depositDescription = scanner.nextLine(); // saving it in a variable
+        LocalDate date = LocalDate.now();//making a variable to save the current date so we can later insert it as a parameter to a transaction in the list called transactions
+        LocalTime time = LocalTime.now();//making a variable to save the current time so we can later insert it as a parameter to a transaction in a list called transactions
+        System.out.println("Deposit of Amount: $" + depositAmount + " successful!");// telling user their deposit was successful
+
+        ATransaction userDeposit = new ATransaction(date, time, depositDescription, funderName, depositAmount); //with all the parameters provided above we create a transaction under the variable userDeposit
+        transactions.add(userDeposit);//we add our above deposit as transaction to a list called transactions
+        logAction(depositDescription + "|" + funderName + "|" + depositAmount); // we are calling the log action to write this down in as csv called transactions.csv
+
 
     }
-    private makePayment(){
+
+    private static void makePayment() {
+        System.out.println("Please enter name of payee");
+        String vendorName = scanner.nextLine().toLowerCase().trim();
+
+        System.out.println(("Please type the amount you want to transfer to payee"));
+        double paymentAmount = scanner.nextDouble();
+        scanner.nextLine();
+        double ledgerPaymentAmount = -Math.abs(paymentAmount); //changed variable name so I can still use the positive number to the user.
+
+        System.out.println("Please describe what you are buying");
+        String paymentDescription = scanner.nextLine();
+
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+
+        System.out.println("Payment to " + vendorName + " of $" + paymentAmount + " successful!");
+        ATransaction payTransfer = new ATransaction(date, time, paymentDescription, vendorName, ledgerPaymentAmount);
+        transactions.add(payTransfer);
+        logAction(paymentDescription + "|" + vendorName + "|" + ledgerPaymentAmount);
 
     }
-    private displayEntries(){
+
+    public static void runReports() {
+        System.out.printf("""
+                ==============================
+                           Reports
+                ==============================
+                
+                1. Month To Date
+                2. Previous Month
+                3. Year To Date
+                4. Previous Year
+                5. Search By Vendor
+                0. Back To Ledger Screen
+                """);
 
     }
-    private displayDeposits(){
 
-    }
-    private displayPayments(){
-
-    }
-    private displayReports(){
-    }*/
 
 }
