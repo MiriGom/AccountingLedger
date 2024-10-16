@@ -37,7 +37,11 @@ public class ATransaction {
     public double getAmount() {
         return amount;
     }
-
+    @Override
+    public String toString() {
+        return String.format("%-10s %-10s %-25s %-20s $%-7.2f", date, time, description, vendor, amount);
+    }
+/*
     @Override
     public String toString() {
         return date + "|" +
@@ -45,6 +49,7 @@ public class ATransaction {
                 description + "|" +
                 vendor + "|" +
                 amount;
-    }
+    }*/
+
 }
 

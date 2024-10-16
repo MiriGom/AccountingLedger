@@ -90,6 +90,7 @@ public class AccountingLedger {
                     """);
 
             String userInputLetter = scanner.nextLine();
+
             switch (userInputLetter.toUpperCase().trim()) {
                 case "A":
                     for (ATransaction transaction : transactions) {
@@ -129,7 +130,7 @@ public class AccountingLedger {
 
                 while ((eachLine = bufReader.readLine()) !=null) {
                     String[] newEachLine = eachLine.split("\\|");
-
+                    //bufReader.readLine();
                     if (newEachLine.length < 5) {
                         System.out.println("Invalid format: " + eachLine);
                         continue;
@@ -190,7 +191,7 @@ public class AccountingLedger {
 
     private static void makePayment() {
         System.out.println("Please enter name of payee");
-        String vendorName = scanner.nextLine().toLowerCase().trim();
+        String vendorName = scanner.nextLine().trim();
 
         System.out.println(("Please type the amount you want to transfer to payee"));
         double paymentAmount = scanner.nextDouble();
@@ -203,7 +204,7 @@ public class AccountingLedger {
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
 
-        System.out.println("Payment to " + vendorName + " of $" + paymentAmount + " successful!");
+        System.out.println("Payment to " + vendorName + " of $" + formattedPaymentAmount + " successful!");
         ATransaction payTransfer = new ATransaction(date, time, paymentDescription, vendorName, ledgerPaymentAmount);
         transactions.add(payTransfer);
         logAction(paymentDescription + "|" + vendorName + "|" + ledgerPaymentAmount);
