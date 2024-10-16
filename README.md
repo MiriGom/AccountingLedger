@@ -3,7 +3,7 @@
 
 ### Overview
 - I prompt you to enter your full name, so I can welcome you and run the application <br>
-  ![Image goes here](AccountingLedger/img.png)
+  ![Image goes here](AccountingLedg/img.png)
 
 I just check that the users answer is not empty and that turns the boolean "isRunning" to true
 I added a method to add a deposit which prompts you for the funder name, deposit amount, and reason/description
