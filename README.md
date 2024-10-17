@@ -6,7 +6,7 @@
   ![Image goes here](AccountingLedger/homescreen.PNG)
 
 I just check that the users answer is not empty and that turns the boolean "isRunning" to true.
-
+ ![image](AccountingLedger/Deposit_picture.PNG)
 I added a method to add a deposit which prompts you for the funder name, deposit amount, and reason/description. Your run this method by entering the letter "d".
 Inside the method I call the logAction to write to the csv file called transactions
 I do the same with function "add a payment" but here I add another variable to which I call the -Math.abs(paymentAmount) so that it converts the given amount to negative.
