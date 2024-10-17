@@ -28,21 +28,28 @@ public class AccountingLedger {
             isRunning = true;
         }
         while (isRunning) {
+            String userInput;
             System.out.printf("""
-                    ==========================================
+                    ====================================================================
                     
-                              WELCOME %s
+                                           WELCOME %s
                     
-                    ==========================================
+                    ====================================================================
+                    ENTER CORRESPONDING LETTER TO ACCESS THE OPTIONS BELOW
+                    
                     D: Add Deposit
                     P: Make a Payment
                     L: Ledger
                     X: Exit
+                    
+                    ====================================================================
                     """, userFullName);
             String userInputLetter = scanner.nextLine().trim().toUpperCase();
             switch (userInputLetter) {
                 case "D":
                     addDeposit();
+                    System.out.println("\npress \"B\" to go back to previous screen.");
+                    userInput = scanner.nextLine().toUpperCase().trim();
                     break;
                 case "P":
                     makePayment();
@@ -76,9 +83,10 @@ public class AccountingLedger {
         boolean isRunning = true;
         while (isRunning) {
             System.out.println("""
-                    ===============================
-                                DISPLAY
-                    ===============================
+                    ===============================================================
+                                               DISPLAY
+                    ===============================================================
+                    ENTER CORRESPONDING LETTER TO ACCESS THE OPTIONS BELOW
                     
                     A: All Entries
                     D: Deposits
@@ -86,30 +94,51 @@ public class AccountingLedger {
                     R: Reports
                     H: Home Screen
                     
-                    ===============================
+                    ===============================================================
                     """);
 
             String userInputLetter = scanner.nextLine();
-
+            String userInput;
             switch (userInputLetter.toUpperCase().trim()) {
                 case "A":
+                    System.out.println("""
+                            ----------------------------------------------------------------------------------------
+                                                                    ALL ENTRIES
+                            ----------------------------------------------------------------------------------------
+                            """);
                     for (ATransaction transaction : transactions) {
                         System.out.println(transaction);
                     }
+                    System.out.println("\npress \"B\" to go back to previous screen.");
+                    userInput = scanner.nextLine().toUpperCase().trim();
                     break;
                 case "D":
+                    System.out.println("""
+                            --------------------------------------------------------------------------------------
+                                                                DEPOSITS
+                            --------------------------------------------------------------------------------------                                    
+                            """);
                     for (ATransaction transaction : transactions) {
                         if (transaction.getAmount() > 0) {
                             System.out.println(transaction);
                         }
                     }
+                    System.out.println("\npress \"B\" to go back to previous screen.");
+                    userInput = scanner.nextLine().toUpperCase().trim();
                     break;
                 case "P":
+                    System.out.println("""
+                            --------------------------------------------------------------------------------------
+                                                                PAYMENTS
+                            --------------------------------------------------------------------------------------                                    
+                            """);
                     for (ATransaction transaction : transactions) {
                         if (transaction.getAmount() < 0) {
                             System.out.println(transaction);
                         }
                     }
+                    System.out.println("\npress \"B\" to go back to previous screen.");
+                    userInput = scanner.nextLine().toUpperCase().trim();
                     break;
                 case "R":
                     runReports();
@@ -121,52 +150,53 @@ public class AccountingLedger {
     }
 
 
-        //method to read data from csv and write to the ledger
-        private static void loadLedger() {
-            try {
-                FileReader fileReader = new FileReader("C:\\pluralsight\\AccountingLedger\\AccountingLedger\\transactions.csv");
-                BufferedReader bufReader = new BufferedReader(fileReader);
-                String eachLine;
+    //method to read data from csv and write to the ledger
+    private static void loadLedger() {
+        try {
+            FileReader fileReader = new FileReader("C:\\pluralsight\\AccountingLedger\\AccountingLedger\\transactions.csv");
+            BufferedReader bufReader = new BufferedReader(fileReader);
+            String eachLine;
 
-                while ((eachLine = bufReader.readLine()) !=null) {
-                    String[] newEachLine = eachLine.split("\\|");
-                    //bufReader.readLine();
-                    if (newEachLine.length < 5) {
-                        System.out.println("Invalid format: " + eachLine);
-                        continue;
-                    }
-                    LocalDate date;
-                    try {
-                        date = LocalDate.parse(newEachLine[0].trim());
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Invalid date format: " + newEachLine[0]);
-                        continue;
-                    }
-                    LocalTime time;
-                    try {
-                        time = LocalTime.parse(newEachLine[1].trim());
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Invalid time format: " + newEachLine[1]);
-                        continue;
-                    }
-                    String description = newEachLine[2].trim();
-                    String vendor = newEachLine[3].trim();
-                    double amount;
-                    try {
-                        amount = Double.parseDouble(newEachLine[4].trim());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid amount format: " + newEachLine[3]);
-                        continue;
-                    }
-                    ATransaction userTransaction = new ATransaction(date, time, description, vendor, amount);
-                    transactions.add(userTransaction);
+            while ((eachLine = bufReader.readLine()) != null) {
+                String[] newEachLine = eachLine.split("\\|");
+                //bufReader.readLine();
+                if (newEachLine.length < 5) {
+                    System.out.println("Invalid format: " + eachLine);
+                    continue;
                 }
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                LocalDate date;
+                try {
+                    date = LocalDate.parse(newEachLine[0].trim());
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date format: " + newEachLine[0]);
+                    continue;
+                }
+                LocalTime time;
+                try {
+                    time = LocalTime.parse(newEachLine[1].trim());
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid time format: " + newEachLine[1]);
+                    continue;
+                }
+                String description = newEachLine[2].trim();
+                String vendor = newEachLine[3].trim();
+                double amount;
+                try {
+                    amount = Double.parseDouble(newEachLine[4].trim());
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid amount format: " + newEachLine[3]);
+                    continue;
+                }
+                ATransaction userTransaction = new ATransaction(date, time, description, vendor, amount);
+                transactions.add(userTransaction);
             }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+    }
+
     private static void addDeposit() {
         System.out.println("Please enter name of the funder for this deposit");//prompt user for name of funder
         String funderName = scanner.nextLine().toLowerCase().trim(); //variable to save name provided
@@ -176,7 +206,7 @@ public class AccountingLedger {
         String formattedDeposit = String.format("%.2f", depositAmount);
         scanner.nextLine(); //used after an nextInt or nextDouble to complete
 
-        System.out.println("Please give reason or description for the deposit"); //prompting user for a description
+        System.out.println("Please type reason for the deposit"); //prompting user for a description
         String depositDescription = scanner.nextLine(); // saving it in a variable
         LocalDate date = LocalDate.now();//making a variable to save the current date so we can later insert it as a parameter to a transaction in the list called transactions
         LocalTime time = LocalTime.now();//making a variable to save the current time so we can later insert it as a parameter to a transaction in a list called transactions
@@ -198,7 +228,7 @@ public class AccountingLedger {
         scanner.nextLine();
         double ledgerPaymentAmount = -Math.abs(paymentAmount); //changed variable name so I can still use the positive number to the user.
         String formattedPaymentAmount = String.format("%.2f", paymentAmount);
-        System.out.println("Please describe what you are buying");
+        System.out.println("Please type reason for payment");
         String paymentDescription = scanner.nextLine();
 
         LocalDate date = LocalDate.now();
@@ -215,9 +245,10 @@ public class AccountingLedger {
         boolean isRunning = true;
         while (isRunning) {
             System.out.printf("""
-                    ==============================
-                               Reports
-                    ==============================
+                    =========================================================
+                                           Reports
+                    =========================================================
+                    ENTER CORRESPONDING NUMBER TO ACCESS AN OPTION BELOW
                     
                     1. Month To Date
                     2. Previous Month
@@ -225,16 +256,23 @@ public class AccountingLedger {
                     4. Previous Year
                     5. Search By Vendor
                     0. Back To Ledger Screen
+                    
+                    =========================================================
                     """);
             int numberCommand = scanner.nextInt();
             scanner.nextLine();
             LocalDate date = LocalDate.now();
-
+            String userInput;
 
             switch (numberCommand) {
                 case 0:
                     return;
                 case 1:
+                    System.out.println("""
+                            --------------------------------------------------------------------------------------
+                                                                MONTH TO DATE
+                            --------------------------------------------------------------------------------------                                    
+                            """);
                     LocalDate firstDayOfMonth = date.withDayOfMonth(1);
                     LocalDate lastDayOfMonth = date.withDayOfMonth(date.lengthOfMonth());
                     for (ATransaction transaction : transactions) {
@@ -243,8 +281,15 @@ public class AccountingLedger {
                             System.out.println(transaction);
                         }
                     }
+                    System.out.println("\npress \"B\" to go back to previous screen.");
+                    userInput = scanner.nextLine().toUpperCase().trim();
                     break;
                 case 2:
+                    System.out.println("""
+                            --------------------------------------------------------------------------------------
+                                                                PREVIOUS MONTH
+                            --------------------------------------------------------------------------------------                                    
+                            """);
                     LocalDate previousMonth = date.minusMonths(1);//this gets us exactly one month from today
                     LocalDate firstDayOfPreviousMonth = previousMonth.withDayOfMonth(1);//to build beginning of month range
                     LocalDate lastDayOfPreviousMonth = previousMonth.withDayOfMonth(previousMonth.lengthOfMonth());// to end the month range
@@ -255,14 +300,29 @@ public class AccountingLedger {
                             System.out.println(transaction);
                         }
                     }
+                    System.out.println("\npress \"B\" to go back to previous screen.");
+                    userInput = scanner.nextLine().toUpperCase().trim();
                     break;
                 case 3:
+                    System.out.println("""
+                            --------------------------------------------------------------------------------------
+                                                                YEAR TO DATE
+                            --------------------------------------------------------------------------------------                                    
+                            """);
                     for (ATransaction transaction : transactions) {
                         if (transaction.getDate().getYear() == date.getYear()) {
                             System.out.println(transaction);
                         }
-                    } break;
+                    }
+                    System.out.println("\npress \"B\" to go back to previous screen.");
+                    userInput = scanner.nextLine().toUpperCase().trim();
+                    break;
                 case 4:
+                    System.out.println("""
+                            --------------------------------------------------------------------------------------
+                                                                PREVIOUS YEAR
+                            --------------------------------------------------------------------------------------                                    
+                            """);
                     LocalDate previousYear = date.minusYears(1);//this gets us exactly one month from today
                     LocalDate firstDayOfPreviousYear = previousYear.withDayOfYear(1);//to build beginning of month range
                     LocalDate lastDayOfPreviousYear = previousYear.withDayOfMonth(previousYear.lengthOfMonth());// to end the month range
@@ -273,15 +333,25 @@ public class AccountingLedger {
                             System.out.println(transaction);
                         }
                     }
+                    System.out.println("\npress \"B\" to go back to previous screen.");
+                    userInput = scanner.nextLine().toUpperCase().trim();
                     break;
                 case 5:
+                    System.out.println("""
+                            --------------------------------------------------------------------------------------
+                                                                VENDOR
+                            --------------------------------------------------------------------------------------                                    
+                            """);
                     System.out.println("Type and enter the vender you are searching for");
                     String searchingForVender = scanner.nextLine().toLowerCase().trim();
                     for (ATransaction transaction : transactions) {
                         if (searchingForVender.equals(transaction.getVendor().toLowerCase())) {
                             System.out.println(transaction);
                         }
-                    } break;
+                    }
+                    System.out.println("\npress \"B\" to go back to previous screen.");
+                    userInput = scanner.nextLine().toUpperCase().trim();
+                    break;
             }
         }
     }

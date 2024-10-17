@@ -39,7 +39,7 @@ public class ATransaction {
     }
     @Override
     public String toString() {
-        return String.format("%-10s %-10s %-25s %-20s $%-7.2f", date, time, description, vendor, amount);
+        return String.format("%-12s %-12s %-25s %-20s $%-7.2f", date, time, description, vendor, amount);
     }
 /*
     @Override
